@@ -1,0 +1,82 @@
+/* Original Navgoco uses .nav as a CSS selector - swapped with .menu for WordPress*/
+.menu, .menu ul, .menu li {
+    list-style: none;
+}
+
+.menu ul {
+    padding: 0;
+    margin: 0 0 0 18px;
+}
+
+.menu {
+    padding: 4px;
+    margin: 0px;
+}
+
+.menu > li {
+    margin: 4px 0;
+}
+
+.menu > li li {
+    margin: 2px 0;
+}
+
+.menu a {
+    color: #333;
+    display: block;
+    outline: none;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.menu li > a > span {
+    float: right;
+    font-size: 19px;
+    font-weight: bolder;
+}
+
+.menu li > a:hover > span {
+    color: #fff;
+}
+
+.menu li > a > span:after {
+    content: '\25be';
+}
+.menu li.open > a > span:after {
+    content: '\25b4';
+}
+
+.menu a:hover, .menu li.active > a {
+    background-color: #5D5D5D;
+    color: #f5f5f5;
+}
+
+.menu > li.active > a  {
+    background-color: #4D90FE;
+}
+
+.menu li a {
+    font-size: 14px;
+    line-height: 18px;
+    padding: 2px 10px;
+}
+
+.menu > li > a {
+    font-size: 16px;
+    line-height: 20px;
+    padding: 4px 10px;
+}
+
+.menu li.vert-open > a > span:after {
+    font-family: fontawesome;
+    float: right;
+    content: "\f0d8";
+}
+
+.menu li > a > span:after {
+    font-family: fontawesome;
+    float: right;
+    content: "\f0dd";
+}
