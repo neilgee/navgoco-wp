@@ -6,7 +6,7 @@ Tags: menu, vertical, multi-level
 Requires at least: 4.0
 Tested up to: 4.3
 Stable tag: 1.0.0
-Plugin Name: Navgoco
+Plugin Name: Navgoco Menu
 Plugin URI: http://wpbeaches.com
 Description: Vertical Multi-level Slider Menu
 Author: Neil Gee
