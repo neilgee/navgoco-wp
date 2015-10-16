@@ -47,6 +47,7 @@ When adding the Menu in the Navgoco settings make sure to add the CSS ID symbol 
 The settings are found via the dashboard Settings > Navgoco Menu
 
 - Add in the Menu CSS ID to apply the Navgoco Menu to, comma separate multiple menus.
+- Each menu transformed into a Navgoco Menu will get an additional CSS Menu class called 'navgoco'
 
 
 
