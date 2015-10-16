@@ -30,7 +30,7 @@ This section describes how to install the plugin:
 
 1. Upload the `navgoco` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Options are in Settings => navgoco
+3. Options are in Settings => Navgoco Menu
 
 
 == Frequently Asked Questions ==
@@ -48,6 +48,12 @@ The settings are found via the dashboard Settings > Navgoco Menu
 
 - Add in the Menu CSS ID to apply the Navgoco Menu to, comma separate multiple menus.
 - Each menu transformed into a Navgoco Menu will get an additional CSS Menu class called 'navgoco'
+- Option to disable the Navgoco default CSS
+- Change the menu slide duration
+- Change the menu slide transition
+- Option to save the menu state in a browser session
+- Option to enable 'Accordion' effect which can close menu item when another is clicked
+- Option to add additional HTML mark up inside the <code><span></span> tag for the Carat dropdown symbol
 
 
 
