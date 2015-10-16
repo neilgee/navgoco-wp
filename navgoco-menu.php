@@ -197,6 +197,12 @@ function navgoco_validate_input( $input ) {
     return apply_filters( 'navgoco_validate_input' , $output, $input );
 }
 
+/**
+ * Register our section call back
+ * (not much happening here)
+ * @since 1.0.0
+ */
+
 function ng_navgoco_section_callback() {
 
 }
