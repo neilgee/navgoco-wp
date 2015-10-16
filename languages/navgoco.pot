@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: navgoco\n"
-"POT-Creation-Date: 2015-10-16 15:11+1000\n"
-"PO-Revision-Date: 2015-10-16 15:11+1000\n"
+"POT-Creation-Date: 2015-10-16 15:26+1000\n"
+"PO-Revision-Date: 2015-10-16 15:26+1000\n"
 "Last-Translator: Neil Gee <ngowran@mac.com>\n"
 "Language-Team:  <neil@wpbeaches.com>\n"
 "Language: en_US\n"
@@ -17,7 +17,9 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: navgoco-menu.php:223
-msgid "Add Menu ID to use as Navgoco Vertical Menu"
+msgid ""
+"Add Menu ID or Class to use as Navgoco Vertical Menu, comma separate "
+"multiple menus"
 msgstr ""
 
 #: navgoco-menu.php:239

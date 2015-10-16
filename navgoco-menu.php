@@ -48,7 +48,7 @@ function scripts_styles() {
 $options = get_option( 'navgoco_settings' );
 
   wp_register_script ( 'navgocojs' , plugins_url( '/js/jquery.navgoco.js',  __FILE__ ), array( 'jquery' ), '0.2.1', false );
-  wp_register_script ( 'navgococookie' , plugins_url( '/js/jquery.cookie.min.js',  __FILE__ ), array( 'jquery' ), '0.2.1', false );
+  wp_register_script ( 'navgococookie' , plugins_url( '/js/jquery.cookie.min.js',  __FILE__ ), array( 'jquery' ), '1.4.1', false );
   wp_register_style ( 'navgococss' , plugins_url( '/css/navgoco.css',  __FILE__ ), '' , '0.2.1', 'all' );
   wp_register_script ( 'navgoco-init' , plugins_url( '/js/navgoco-init.js',  __FILE__ ), array( 'navgocojs' ), '1.0.0', false );
   wp_register_style ( 'fontawesome' , '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', '' , '4.4.0', 'all' );
@@ -110,7 +110,7 @@ function plugin_settings(){
 
   add_settings_field(
         'ng_menu_selection', //unique id of field
-        'Add Menu ID', //title
+        'Add Menu ID or Class', //title
          __NAMESPACE__ . '\\ng_menu_id_callback', //callback function below
         'navgoco', //page that it appears on
         'ng_navgoco_section' //settings section declared in add_settings_section
@@ -126,7 +126,7 @@ function plugin_settings(){
 
    add_settings_field(
         'ng_menu_html_carat', //unique id of field
-        'HTML Carat', //title
+        'HTML Carat Markup', //title
          __NAMESPACE__ . '\\ng_menu_html_carat_callback', //callback function below
         'navgoco', //page that it appears on
         'ng_navgoco_section' //settings section declared in add_settings_section
@@ -219,8 +219,8 @@ $options = get_option( 'navgoco_settings' );
 if( !isset( $options['ng_menu_selection'] ) ) $options['ng_menu_selection'] = '';
 
 
-echo '<input type="text" id="ng_menu_selection" name="navgoco_settings[ng_menu_selection]" value="' . sanitize_text_field($options['ng_menu_selection']) . '" placeholder="Add Menu ID to use as Navgoco Vertical Menu">';
-echo '<label for="ng_menu_selection">' . esc_attr_e( 'Add Menu ID to use as Navgoco Vertical Menu','navgoco') . '</label>';
+echo '<input type="text" id="ng_menu_selection" name="navgoco_settings[ng_menu_selection]" value="' . sanitize_text_field($options['ng_menu_selection']) . '" placeholder="Add Menu ID to use as Navgoco Vertical Menu" class="regular-text" >';
+echo '<label for="ng_menu_selection">' . esc_attr_e( 'Add Menu ID or Class to use as Navgoco Vertical Menu, comma separate multiple menus','navgoco') . '</label>';
 }
 
 /**
@@ -251,7 +251,7 @@ $options = get_option( 'navgoco_settings' );
 
 if( !isset( $options['ng_menu_html_carat'] ) ) $options['ng_menu_html_carat'] = '';
 
-echo '<input type="text" id="ng_menu_html_carat" name="navgoco_settings[ng_menu_html_carat]" value="' . esc_attr($options['ng_menu_html_carat']) . '" placeholder="Add custom HTML mark up">';
+echo '<input type="text" id="ng_menu_html_carat" name="navgoco_settings[ng_menu_html_carat]" value="' . esc_attr($options['ng_menu_html_carat']) . '" placeholder="Add custom HTML mark up" class="regular-text">';
 echo '<label for="ng_menu_html_carat">' . esc_attr_e( 'Insert additional HTML for the dropdown Carat','navgoco') . '</label>';
 }
 

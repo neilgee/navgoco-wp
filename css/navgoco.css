@@ -1,4 +1,4 @@
-/* Original Navgoco uses .nav as a CSS selector - swapped with .navgoco for WordPress*/
+/* Original Navgoco uses .nav as a CSS selector - swapped with .navgoco for WordPress - rems added in*/
 .navgoco, .navgoco ul, .navgoco li {
     list-style: none;
 }
@@ -34,6 +34,7 @@
 .navgoco li > a > span {
     float: right;
     font-size: 19px;
+    font-size: 1.9rem;
     font-weight: bolder;
 }
 
@@ -59,12 +60,14 @@
 
 .navgoco li a {
     font-size: 16px;
+    font-size: 1.6rem;
     line-height: 24px;
     padding: 2px 10px;
 }
 
 .navgoco > li > a {
     font-size: 16px;
+    font-size: 1.6rem;
     line-height: 33px;
     padding: 4px 10px;
 }
@@ -73,10 +76,14 @@
     font-family: fontawesome;
     float: right;
     content: "\f0d8";
+  /*   content: "\f068"; */
+
 }
 
 .navgoco li > a > span:after {
     font-family: fontawesome;
     float: right;
     content: "\f0dd";
+  /*  content: "\f067"; */
+
 }
