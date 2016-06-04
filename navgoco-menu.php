@@ -51,7 +51,7 @@ $options = get_option( 'navgoco_settings' );
   wp_register_script ( 'navgococookie' , plugins_url( '/js/jquery.cookie.min.js',  __FILE__ ), array( 'jquery' ), '1.4.1', false );
   wp_register_style ( 'navgococss' , plugins_url( '/css/navgoco.css',  __FILE__ ), '' , '0.2.1', 'all' );
   wp_register_script ( 'navgoco-init' , plugins_url( '/js/navgoco-init.js',  __FILE__ ), array( 'navgocojs' ), '1.0.0', false );
-  wp_register_style ( 'fontawesome' , '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', '' , '4.4.0', 'all' );
+  wp_register_style ( 'fontawesome' , '//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', '' , '4.6.3', 'all' );
 
   // Add new plugin options defaults here, set them to blank, this will avoid PHP notices of undefined, if new options are introduced to the plugin and are not saved or udated then the setting will be defined.
   $options_default = array(
