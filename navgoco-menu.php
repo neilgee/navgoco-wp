@@ -5,7 +5,7 @@ Plugin Name: Navgoco Vertical Multilevel Slide Menu
 Plugin URI: http://wpbeaches.com/
 Description: Using Navgoco Vertical Multilevel Slide Menu in WordPress
 Author: Neil Gee
-Version: 1.0.0
+Version: 1.1.0
 Author URI: http://wpbeaches.com
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -53,12 +53,26 @@ $options = get_option( 'navgoco_settings' );
   wp_register_script ( 'navgoco-init' , plugins_url( '/js/navgoco-init.js',  __FILE__ ), array( 'navgocojs' ), '1.0.0', false );
   wp_register_style ( 'fontawesome' , '//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css', '' , '4.4.0', 'all' );
 
+  // Add new plugin options defaults here, set them to blank, this will avoid PHP notices of undefined, if new options are introduced to the plugin and are not saved or udated then the setting will be defined.
+  $options_default = array(
+
+      'ng_menu_save'          => '',
+      'ng_menu_disable_style' => '',
+      'ng_menu_selection'     => '',
+      'ng_menu_accordion'     => '',
+      'ng_menu_html_carat'    => '',
+      'ng_slide_easing'       => '',
+      'ng_slide_duration'     => '',
+  );
+
+  $options = wp_parse_args( $options, $options_default );
+
 
   wp_enqueue_script( 'navgocojs' );
    if( (bool) $options['ng_menu_save'] == true ) {
   wp_enqueue_script( 'navgococookie' );
     }
-   if( (bool) $options['ng_menu_disable_style'] == false ) { 
+   if( (bool) $options['ng_menu_disable_style'] == false ) {
   wp_enqueue_style( 'navgococss' );
   wp_enqueue_style( 'fontawesome' );
     }
@@ -66,23 +80,25 @@ $options = get_option( 'navgoco_settings' );
      $data = array (
 
       'ng_navgo' => array(
-          
+
 			'ng_menu_selection'  => esc_html($options['ng_menu_selection']),
 			'ng_menu_accordion'  => (bool)$options['ng_menu_accordion'],
 			'ng_menu_html_carat' => $options['ng_menu_html_carat'],
 			'ng_slide_easing'    => esc_html($options['ng_slide_easing']),
 			'ng_slide_duration'  => (int)$options['ng_slide_duration'],
 			'ng_menu_save'       => (bool)$options['ng_menu_save'],
-          
 
       ),
   );
+
+     //add filter
+    $data = apply_filters( 'ng_navgoco_navgocoVars', $data );
 
     // Pass PHP variables to jQuery script
     wp_localize_script( 'navgoco-init', 'navgocoVars', $data );
 
     wp_enqueue_script( 'navgoco-init' );
-  
+
 }
 
 add_action( 'wp_enqueue_scripts', __NAMESPACE__ . '\\scripts_styles' );
@@ -171,28 +187,28 @@ add_action('admin_init', __NAMESPACE__ . '\\plugin_settings');
 function navgoco_validate_input( $input ) {
    // Create our array for storing the validated options
     $output = array();
-     
+
     // Loop through each of the incoming options
     foreach( $input as $key => $value ) {
     	if( isset( $input['ng_menu_html_carat'] ) ) {
-         
+
             // Keep HTML in this field
            $output['ng_menu_html_carat'] = wp_kses_post($input['ng_menu_html_carat']);
 			//$output['ng_menu_html_carat'] = wp_filter_post_kses( wp_slash( $input['ng_menu_html_carat'] ) ); // wp_filter_post_kses() expects slashed
-             
-        } // end if
-         
-        // Check to see if the current option has a value. If so, process it.
-        if( isset( $input[$key] ) ) {
-         
-            // Strip all HTML and PHP tags and properly handle quoted strings
-            $output[$key] = strip_tags( stripslashes( $input[ $key ] ) );
-             
+
         } // end if
 
-         
+        // Check to see if the current option has a value. If so, process it.
+        if( isset( $input[$key] ) ) {
+
+            // Strip all HTML and PHP tags and properly handle quoted strings
+            $output[$key] = strip_tags( stripslashes( $input[ $key ] ) );
+
+        } // end if
+
+
     } // end foreach
-     
+
     // Return the array processing any additional functions filtered by this action
     return apply_filters( 'navgoco_validate_input' , $output, $input );
 }
@@ -214,7 +230,7 @@ function ng_navgoco_section_callback() {
  */
 
 function ng_menu_id_callback() {
-$options = get_option( 'navgoco_settings' ); 
+$options = get_option( 'navgoco_settings' );
 
 if( !isset( $options['ng_menu_selection'] ) ) $options['ng_menu_selection'] = '';
 
@@ -230,9 +246,9 @@ echo '<label for="ng_menu_selection">' . esc_attr_e( 'Add Menu ID or Class to us
  */
 
 function ng_menu_accordion_callback() {
-$options = get_option( 'navgoco_settings' ); 
+$options = get_option( 'navgoco_settings' );
 
-//if( !isset( $options['ng_menu_accordion'] ) ) $options['ng_menu_accordion'] = 1;
+if( !isset( $options['ng_menu_accordion'] ) ) $options['ng_menu_accordion'] = '';
 
 
   echo'<input type="checkbox" id="ng_menu_accordion" name="navgoco_settings[ng_menu_accordion]" value="1"' . checked( 1, $options['ng_menu_accordion'], false ) . '/>';
@@ -247,7 +263,7 @@ $options = get_option( 'navgoco_settings' );
  */
 
 function ng_menu_html_carat_callback() {
-$options = get_option( 'navgoco_settings' ); 
+$options = get_option( 'navgoco_settings' );
 
 if( !isset( $options['ng_menu_html_carat'] ) ) $options['ng_menu_html_carat'] = '';
 
@@ -262,12 +278,12 @@ echo '<label for="ng_menu_html_carat">' . esc_attr_e( 'Insert additional HTML fo
  */
 
 function ng_slide_duration_callback(){
-$options = get_option( 'navgoco_settings' );  
+$options = get_option( 'navgoco_settings' );
 
   if( !isset( $options['ng_slide_duration'] ) ) $options['ng_slide_duration'] = 400;
-  
+
   ?>
- 
+
   <select name="navgoco_settings[ng_slide_duration]" id="ng_slide_duration">
     <option value="200" <?php selected($options['ng_slide_duration'], '200'); ?>>200</option>
     <option value="400" <?php selected($options['ng_slide_duration'], '400'); ?>>400</option>
@@ -287,16 +303,16 @@ $options = get_option( 'navgoco_settings' );
  */
 
 function ng_slide_easing_callback(){
-$options = get_option( 'navgoco_settings' );  
+$options = get_option( 'navgoco_settings' );
 
   if( !isset( $options['ng_slide_easing'] ) ) $options['ng_slide_easing'] = 'swing';
-  
+
   ?>
- 
+
   <select name="navgoco_settings[ng_slide_easing]" id="ng_slide_easing">
     <option value="swing" <?php selected($options['ng_slide_easing'], 'swing'); ?>>swing</option>
     <option value="linear" <?php selected($options['ng_slide_easing'], 'linear'); ?>>linear</option>
- 
+
   </select>
    <label for="ng_slide_easing"><?php esc_attr_e( 'Easing Transitions', 'navgoco' ); ?></label>
   <?php
@@ -309,9 +325,9 @@ $options = get_option( 'navgoco_settings' );
  */
 
 function ng_menu_save_callback() {
-$options = get_option( 'navgoco_settings' ); 
+$options = get_option( 'navgoco_settings' );
 
-//if( !isset( $options['ng_menu_accordion'] ) ) $options['ng_menu_accordion'] = 1;
+if( !isset( $options['ng_menu_save'] ) ) $options['ng_menu_save'] = '';
 
 
   echo'<input type="checkbox" id="ng_menu_save" name="navgoco_settings[ng_menu_save]" value="1"' . checked( 1, $options['ng_menu_save'], false ) . '/>';
@@ -326,10 +342,9 @@ $options = get_option( 'navgoco_settings' );
  */
 
 function ng_menu_disable_style_callback() {
-$options = get_option( 'navgoco_settings' ); 
+$options = get_option( 'navgoco_settings' );
 
-//if( !isset( $options['ng_menu_accordion'] ) ) $options['ng_menu_accordion'] = 1;
-
+if( !isset( $options['ng_menu_disable_style'] ) ) $options['ng_menu_disable_style'] = '';
 
   echo'<input type="checkbox" id="ng_menu_disable_style" name="navgoco_settings[ng_menu_disable_style]" value="1"' . checked( 1, $options['ng_menu_disable_style'], false ) . '/>';
   echo'<label for="ng_menu_disable_style">' . esc_attr_e( 'Check to Disable Default Navgoco CSS Stylin and DIY','navgoco') . '</label>';
